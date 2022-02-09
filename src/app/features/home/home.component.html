@@ -1,0 +1,31 @@
+<mat-sidenav-container class="app-drawer-container" fullscreen>
+
+    <mat-sidenav #sidenav mode="side">
+        <mat-toolbar>
+            <span>Menú</span>
+            <button (click)="toggle()" mat-icon-button color="primary">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </mat-toolbar>
+        
+        <mat-nav-list>
+            <mat-list-item routerLink="/loans">
+                <mat-icon matListIcon>payment</mat-icon>
+                <a matLine >Lista Préstamos </a>
+            </mat-list-item>
+            <mat-list-item routerLink="/users/list">
+                <mat-icon matListIcon>groups</mat-icon>
+                <a matLine >Lista Usuarios </a>
+            </mat-list-item>
+        </mat-nav-list>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <app-header></app-header>
+        <div class="container">
+            <router-outlet></router-outlet>
+        </div>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
