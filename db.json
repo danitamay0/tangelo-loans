@@ -2,79 +2,58 @@
   "users": [
     {
       "id": 1,
-      "name": "asd",
-      "email": "asd@asd.com",
-      "cardId": "123456"
+      "name": "Carlos Cardona",
+      "email": "carlos@carlos.com",
+      "cardId": 123456
     },
     {
       "id": 2,
-      "name": "carlitos",
-      "email": "casrlos@gmail.com",
-      "cardId": 12345698
+      "name": "Daniel Tamayo",
+      "email": "tamayo@tamayo.com",
+      "cardId": 987654321
     },
     {
       "id": 3,
-      "name": "Daniel TamayoD",
-      "email": "cardona@cardona.co",
-      "cardId": 987654321
+      "name": "Felip Morales",
+      "email": "felipe@felipe.co",
+      "cardId": 777666555
     }
   ],
   "loans": [
     {
       "userId": 1,
       "value": 10000,
-      "datePay": "",
-      "status": "rejected",
+      "datePay": "2022-02-10T05:00:00.000Z",
+      "status": "paid",
       "id": 1
     },
     {
       "userId": 1,
-      "value": 10000,
+      "value": 50000,
       "datePay": null,
-      "status": "rejected",
+      "status": "paid",
       "id": 2
     },
     {
-      "userId": 1,
-      "value": 12345,
-      "datePay": null,
-      "status": "rejected",
-      "id": 3
-    },
-    {
-      "userId": 1,
-      "value": 12322,
-      "datePay": null,
-      "status": "paid",
-      "id": 4
-    },
-    {
       "userId": 2,
-      "value": 10000,
-      "datePay": "",
-      "status": "paid",
-      "id": 5
+      "value": 90000,
+      "datePay": null,
+      "status": "approved",
+      "id": 3
     },
     {
       "userId": 3,
       "value": 10000,
-      "datePay": "2022-02-11T05:00:00.000Z",
+      "datePay": "",
       "status": "rejected",
-      "id": 6
+      "id": 4
     },
     {
       "userId": 3,
       "value": 50000,
       "datePay": null,
-      "status": "rejected",
-      "id": 7
-    },
-    {
-      "userId": 3,
-      "value": 90000,
-      "datePay": null,
-      "status": "paid",
-      "id": 8
+      "status": "approved",
+      "id": 5
     }
   ]
 }
