@@ -1,14 +1,14 @@
-<div class="main">
-    <section fxLayout="row wrap" class="container" fxLayout.sm="column" fxLayout.xs="column">
-
+<div class="main ">
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center " class="container">
         <section class="info" fxFlex="50" fxLayoutAlign="end center">
             <app-banner-apply [maxQuota]="maxQuota" [minQuota]="minQuota"></app-banner-apply>
-           
+
         </section>
         <section fxFlex="50" class="data" fxLayout="column" fxLayoutAlign="space-between ">
             <app-form-apply [maxQuota]="maxQuota" [minQuota]="minQuota"></app-form-apply>
         </section>
 
-    </section>
-   
+
+    </div>
+
 </div>

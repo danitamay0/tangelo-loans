@@ -11,6 +11,12 @@
       "name": "carlitos",
       "email": "casrlos@gmail.com",
       "cardId": 12345698
+    },
+    {
+      "id": 3,
+      "name": "Daniel TamayoD",
+      "email": "cardona@cardona.co",
+      "cardId": 987654321
     }
   ],
   "loans": [
@@ -46,8 +52,29 @@
       "userId": 2,
       "value": 10000,
       "datePay": "",
-      "status": "approved",
+      "status": "paid",
       "id": 5
+    },
+    {
+      "userId": 3,
+      "value": 10000,
+      "datePay": "2022-02-11T05:00:00.000Z",
+      "status": "rejected",
+      "id": 6
+    },
+    {
+      "userId": 3,
+      "value": 50000,
+      "datePay": null,
+      "status": "rejected",
+      "id": 7
+    },
+    {
+      "userId": 3,
+      "value": 90000,
+      "datePay": null,
+      "status": "paid",
+      "id": 8
     }
   ]
 }
