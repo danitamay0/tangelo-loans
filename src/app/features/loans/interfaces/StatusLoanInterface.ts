@@ -1,5 +1,6 @@
 export interface SatusLoanInterface{
     label:string,
     icon:string,
-    canPay:boolean
+    canPay:boolean,
+    status:string
 }

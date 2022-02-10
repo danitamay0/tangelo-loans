@@ -1,47 +1,18 @@
-<!-- <mat-card class="mat-elevation-z5">
-
-    <mat-card-content >
-      
-       
-    </mat-card-content>
-
-</mat-card> -->
-<section class="statistics">
-    <div class="temp">
-        <span class="big-text">17</span>
-        <h5>Prestámos por pagar </h5>
-    </div>
-    <div class="temp">
-        <span class="big-text">5</span>
-        <h5>Prestámos pagados </h5>
-    </div>
-    <div class="temp">
-        <span class="big-text">4</span>
-        <h5>Prestámos rechazados </h5>
-    </div>
-    <div class="temp">
-        <span class="big-text">26</span>
-        <h5>Solicitudes en total </h5>
-    </div>
-</section>
-
+<app-statistics></app-statistics>
 <mat-card>
     <mat-card-title>Lista de Préstamos</mat-card-title>
     <mat-card-subtitle>Todos los préstamos realizados</mat-card-subtitle>
     <mat-card-content>
-        <mat-tab-group color="primary" backgroundColor="primary">
-            <mat-tab *ngFor="let status  of statusLoans">
+        <mat-tab-group color="primary" backgroundColor="primary" animationDuration="0ms">
+            <mat-tab *ngFor="let statusLoan  of statusLoans">
                 <ng-template mat-tab-label>
-                    <mat-icon class="example-tab-icon">{{status.icon}}</mat-icon>
-                    {{status.label}}
+                    <mat-icon class="example-tab-icon">{{statusLoan.icon}}</mat-icon>
+                    {{statusLoan.label}}
                 </ng-template>
-                <app-table-loans></app-table-loans>
+                <ng-template matTabContent>
+                    <app-table-loans [status]="statusLoan.status"></app-table-loans>
+                </ng-template>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>
-    <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-    </mat-card-actions>
 </mat-card>
-<br>

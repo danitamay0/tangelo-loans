@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import {  Subscription } from 'rxjs';
-import { SidenavService } from 'src/app/core/services/sidenav.service';
+import { SidenavService } from 'src/app/features/shared/services/sidenav.service';
 
 @Component({
   selector: 'app-home',

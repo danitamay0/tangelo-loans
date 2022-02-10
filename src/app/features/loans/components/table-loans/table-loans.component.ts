@@ -1,47 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-export interface UserData {
-  id: string;
-  value: string;
-  user_name: string;
-  status: string;
-}
-
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
+import { LoanData } from '../../interfaces/LoanDataInterface';
+import { LoansService } from '../../services/loans.service';
+import { Fetching } from '../../../shared/types/FetcingType';
+import { SwalService } from 'src/app/features/shared/services/swal.service';
 
 @Component({
   selector: 'app-table-loans',
@@ -51,52 +15,65 @@ const NAMES: string[] = [
 
 export class TableLoansComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'value', 'user_name', 'action'];
-  dataSource: MatTableDataSource<UserData>;
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  @Input('status') status: string
 
-  constructor() {
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
+  fetching: Fetching = 'iddle'
+  pagination = { _limit: 10, _page: 1, length: 0 }
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
-  }
+  displayedColumns: string[] = ['id', 'value', 'user.name',];
+  dataSource: MatTableDataSource<LoanData>;
+
+  constructor(private _loan: LoansService, private _swal: SwalService) { }
 
   ngOnInit(): void {
-      
+    this.status == 'approved' ? this.displayedColumns.push('action') : null
+    this.getLoans()
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  getLoans(currentPage: any = null) {
+    this.fetching = 'pending'
+
+    const data: any = { ...this.pagination }
+    data._page = currentPage ? currentPage.pageIndex + 1 : 1
+    this.status != 'all' ? data.status = this.status : null
+
+    this._loan.getLoans(data)
+      .subscribe((resp: any) => {
+        this.fetching = 'succeded'
+        this.pagination.length = resp.headers.get('X-Total-Count')
+        const data = resp.body ? resp.body : []
+        this.dataSource = new MatTableDataSource(data)
+
+      }, err => this.fetching = 'rejected');
+
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  payLoan(loan: LoanData) {
+    this._swal.show({
+      icon: 'question',
+      title: '¿Está seguro?',
+      text: `Se destina a confirmar el pago del prestámo de ${loan.user.name}`,
+      showCancel: true
+    }).then(r => {
+      if (r.isConfirmed) {
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+        const temporalLoan = { ...loan }
+        delete temporalLoan.user
+        temporalLoan.status = 'paid'
+
+        this._loan.putLoans(loan.id, { ...temporalLoan }).subscribe(res => {
+          this._swal.show({
+            icon: 'success',
+            title: 'Felicidades',
+            text: `Se ha guardado con éxito el pago`,
+            showCancel: false
+          })
+          this.getLoans()
+        })
+      }
+    })
   }
-}
-
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const user_name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
-
-  return {
-    id: id.toString(),
-    user_name: user_name,
-    value: Math.round(Math.random() * 100).toString(),
-    status:'ok',
-  };
 }

@@ -1,0 +1,34 @@
+<form [formGroup]="forma" (ngSubmit)="save()">
+    <section>
+        <h3>Editar Usuario</h3>
+    </section>
+    <section class="form-container">
+        <mat-form-field appearance="fill">
+            <mat-label>Ingrese el Nombre</mat-label>
+            <input formControlName="name" matInput placeholder="Ex. Carlos C.">
+            <mat-error *ngIf="forma.get('name')?.hasError('required')">
+                Nombre es <strong>Obligatorio</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Ingrese la cédula</mat-label>
+            <input formControlName="cardId" matInput placeholder="1234...">
+            <mat-error *ngIf="forma.get('cardId')?.hasError('required')">
+                Documento es <strong>Obligatorio</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Ingrese el Email</mat-label>
+            <input formControlName="email" type="email" matInput placeholder="emaig@email.com">
+            <mat-error *ngIf="forma.get('email')?.hasError('required')">
+                Email es <strong>Obligatorio</strong>
+            </mat-error>
+        </mat-form-field>
+
+    </section>
+    <section class="bottom">
+        <button type="submit" [disabled]="(forma.invalid || forma.pristine)" mat-button color="primary">Guardar</button>
+        <button (click)="close()" type="button" mat-button color="warn">Cancelar</button>
+    </section>
+
+</form>

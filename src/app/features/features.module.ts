@@ -5,18 +5,20 @@ import { MaterialModule } from '../material/material.module';
 
 import { FeaturesRoutingModule } from './features-routing.module';
 import { LayoutsModule } from './layouts/layouts.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [ 
-    HomeComponent,
+    HomeComponent, 
   ],
   imports: [
     CommonModule,
     FeaturesRoutingModule,
     MaterialModule,
-    LayoutsModule
+    LayoutsModule,
+    ReactiveFormsModule
   ]
 })
 export class FeaturesModule { }

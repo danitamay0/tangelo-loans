@@ -1,0 +1,5 @@
+<section class="statistics">
+    <ng-container *ngFor="let data of statistics">
+        <app-card-statistics [title]="data.title" [value]="data.value"></app-card-statistics>
+    </ng-container>
+</section>

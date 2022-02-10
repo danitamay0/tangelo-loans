@@ -1,0 +1,72 @@
+<header>
+    <h2>Ingresa los datos</h2>
+</header>
+
+<form [formGroup]="loanForm">
+    <section fxLayout="column" fxLayoutAlign="start start">
+        <h3>Valor del crédito</h3>
+        <mat-form-field appearance="fill">
+            <input matInput type="number" formControlName="value" placeholder="0">
+            <span matPrefix>$&nbsp;</span>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            <mat-error *ngIf="loanForm.get('value')?.hasError('max')">
+                El valor máximo es <strong>{{maxQuota}}</strong>
+            </mat-error>
+            <mat-error *ngIf="loanForm.get('value')?.hasError('min')">
+                El valor mínimo es <strong>{{minQuota | currency:'':''}}</strong>
+            </mat-error>
+        </mat-form-field>
+    </section>
+
+    <section fxLayout="column" fxLayoutAlign="start start">
+        <h3>Fecha de pago (opcional)</h3>
+        <mat-form-field appearance="fill">
+            <input formControlName="datePay" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </section>
+</form>
+
+<mat-divider></mat-divider>
+
+<form [formGroup]="userForm">
+    <section fxLayout="column" fxLayoutAlign="start start">
+        <h3>Número de Cédula</h3>
+        <mat-form-field appearance="fill">
+            <input matInput type="number" formControlName="cardId" (change)="getUser()" placeholder="0">
+            <mat-icon matSuffix>badge</mat-icon>
+        </mat-form-field>
+    </section>
+
+    <ng-container *ngIf="fetchingUser=='succeded'">
+        <section fxLayout="column" fxLayoutAlign="start start">
+            <h3>Nombre</h3>
+            <mat-form-field appearance="fill">
+                <input matInput formControlName="name" placeholder="Ex. Carlos C.">
+                <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+        </section>
+
+        <section fxLayout="column" fxLayoutAlign="start start">
+            <h3>Email</h3>
+            <mat-form-field appearance="fill">
+                <input matInput type="email" formControlName="email" placeholder="ex. emil@email.com">
+                <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+        </section>
+
+        <ng-container *ngIf="!userForm.get('id')?.value">
+            <span> </span>
+        </ng-container>
+
+    </ng-container>
+
+    <app-loading *ngIf="fetchingUser=='pending'" label="Buscando usuario..."></app-loading>
+
+</form>
+
+<section>
+    <button [disabled]="(userForm.invalid || loanForm.invalid)" (click)="save()" mat-flat-button color="primary">Solicitar</button>
+</section>
+

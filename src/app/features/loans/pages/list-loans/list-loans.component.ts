@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { statusLoans } from '../../dataset/dataset';
 
 
-
 @Component({
   selector: 'app-list-loans',
   templateUrl: './list-loans.component.html',
@@ -14,6 +13,8 @@ export class ListLoansComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
+
 
 }

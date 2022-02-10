@@ -1,0 +1,1 @@
+export  type Fetching = 'iddle'  | 'pending' | 'succeded' | 'rejected'

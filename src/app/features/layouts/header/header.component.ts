@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SidenavService } from 'src/app/core/services/sidenav.service';
+import { SidenavService } from 'src/app/features/shared/services/sidenav.service';
 
 @Component({
   selector: 'app-header',
