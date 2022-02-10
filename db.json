@@ -1,0 +1,53 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "asd",
+      "email": "asd@asd.com",
+      "cardId": "123456"
+    },
+    {
+      "id": 2,
+      "name": "carlitos",
+      "email": "casrlos@gmail.com",
+      "cardId": 12345698
+    }
+  ],
+  "loans": [
+    {
+      "userId": 1,
+      "value": 10000,
+      "datePay": "",
+      "status": "rejected",
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "value": 10000,
+      "datePay": null,
+      "status": "rejected",
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "value": 12345,
+      "datePay": null,
+      "status": "rejected",
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "value": 12322,
+      "datePay": null,
+      "status": "paid",
+      "id": 4
+    },
+    {
+      "userId": 2,
+      "value": 10000,
+      "datePay": "",
+      "status": "approved",
+      "id": 5
+    }
+  ]
+}

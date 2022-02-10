@@ -13,8 +13,8 @@ import { messages } from '../../helpers/message';
   styleUrls: ['./form-apply.component.sass']
 })
 export class FormApplyComponent implements OnInit {
-  @Input('minQuota') minQuota :number
-  @Input('maxQuota') maxQuota :number
+  @Input('minQuota') minQuota: number
+  @Input('maxQuota') maxQuota: number
 
   loanForm: FormGroup
   userForm: FormGroup
@@ -38,6 +38,7 @@ export class FormApplyComponent implements OnInit {
       this.fetchingUser = 'pending';
       this._user.getUsers({ cardId }).subscribe((r: any) => {
         this.fetchingUser = 'succeded';
+
         if (r.body.length) {
           this.userForm.patchValue(r.body[0])
           this.disableFields()
@@ -47,8 +48,6 @@ export class FormApplyComponent implements OnInit {
         this.openSnackBar('¡Bienvenido! por favor completa tus datos para registrarte y continuar', 'Cerrar')
         this.enableFields()
       })
-      console.log(this.userForm.value,this.loanForm.value);
-      
     }
   }
 
@@ -91,30 +90,26 @@ export class FormApplyComponent implements OnInit {
       showCancel: true
     })
 
-    if (res.isConfirmed) {
-      const user: User = this.userForm.value
+    if (!res.isConfirmed) { return }
 
-      if (!user.id) {
-        await this.createUser(user)
-      }
-      this.createLoan()
+    if (!this.userForm.value.id) {
+      await this.createUser()
     }
+    this.createLoan()
   }
 
-  async createUser(user: User) {
-    await this._user.postUser(user).toPromise().then((resp: any) => {
-      user.id = resp.id
-      this.userForm.patchValue({ id: resp.id })
-     
-    })
+  async createUser() {
+    await this._user.postUser(this.userForm.value)
+      .toPromise().then((resp: any) => this.userForm.patchValue({ id: resp.id })
+      )
   }
 
   createLoan() {
-    
+
     let isApproved = this.validateLoan()
     const { icon, title, text } = messages.loan(isApproved)
-    this.loanForm.patchValue({ userId: this.userForm.value.id})
-    
+    this.loanForm.patchValue({ userId: this.userForm.value.id })
+
     this._loan.postUser(this.loanForm.value).subscribe((resp: any) => {
       this._swal.show({ icon, title, text, showCancel: false })
       this.userForm.reset()

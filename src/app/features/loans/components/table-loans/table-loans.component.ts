@@ -6,6 +6,7 @@ import { LoanData } from '../../interfaces/LoanDataInterface';
 import { LoansService } from '../../services/loans.service';
 import { Fetching } from '../../../shared/types/FetcingType';
 import { SwalService } from 'src/app/features/shared/services/swal.service';
+import { AmountService } from 'src/app/features/layouts/services/amount.service';
 
 @Component({
   selector: 'app-table-loans',
@@ -26,7 +27,7 @@ export class TableLoansComponent implements OnInit {
   displayedColumns: string[] = ['id', 'value', 'user.name',];
   dataSource: MatTableDataSource<LoanData>;
 
-  constructor(private _loan: LoansService, private _swal: SwalService) { }
+  constructor(private _loan: LoansService, private _swal: SwalService, private _amout:AmountService) { }
 
   ngOnInit(): void {
     this.status == 'approved' ? this.displayedColumns.push('action') : null
@@ -59,12 +60,15 @@ export class TableLoansComponent implements OnInit {
       showCancel: true
     }).then(r => {
       if (r.isConfirmed) {
-
+        
         const temporalLoan = { ...loan }
         delete temporalLoan.user
         temporalLoan.status = 'paid'
-
+        
         this._loan.putLoans(loan.id, { ...temporalLoan }).subscribe(res => {
+          this._amout.updateData.emit()
+          this._loan.statisticsEmitter.emit()
+          
           this._swal.show({
             icon: 'success',
             title: 'Felicidades',

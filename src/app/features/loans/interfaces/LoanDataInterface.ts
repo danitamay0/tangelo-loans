@@ -1,6 +1,6 @@
 export interface LoanData {
     id: number;
-    value: string;
+    value: number;
     user_name: string;
     status: string;
     user: any

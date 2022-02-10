@@ -18,7 +18,7 @@
         <!-- Value Column -->
         <ng-container matColumnDef="value">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor del préstamo </th>
-            <td mat-cell *matCellDef="let row"> {{row.value}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.value | currency:'':''}} </td>
         </ng-container>
 
         <!-- Action Column -->
